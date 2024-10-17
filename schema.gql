@@ -1,0 +1,102 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Admin {
+  description: String!
+  email: String!
+  full_name: String!
+  hashed_password: String!
+  hashed_token: String!
+  id: ID!
+  is_active: Boolean!
+  is_creator: Boolean!
+  phone_number: String!
+  tg_link: String!
+}
+
+input CreateAdminDto {
+  confirm_password: String
+  description: String
+  email: String
+  full_name: String
+  is_active: Boolean
+  is_creator: Boolean
+  password: String
+  phone_number: String
+  tg_link: String
+}
+
+input CreateWorkerDto {
+  age: Float
+  experience: Float
+  name: String
+  phone_number: String
+  role: Role
+  speciality_id: Float
+  username: String
+  worker_schedule: String
+}
+
+type Mutation {
+  create(createAdminDto: CreateAdminDto!): Admin!
+  createWorker(createWorkerDto: CreateWorkerDto!): Worker!
+  remove(id: ID!): ID!
+  removeWorker(id: ID!): ID!
+  update(id: String!, updateAdminDto: UpdateAdminDto!): Admin!
+  updateWorker(id: String!, updateWorkerDto: UpdateWorkerDto!): Worker!
+}
+
+type Query {
+  findAll: [Admin!]!
+  findAllWorker: [Worker!]!
+  findOne(id: String!): Admin!
+  findOneWorker(id: String!): Worker!
+}
+
+"""Different roles for workers"""
+enum Role {
+  CLEANER
+  DOCTOR
+  EGG_COLLECTOR
+  MANAGER
+  MILKER
+  NURSE
+  SECURITY
+}
+
+input UpdateAdminDto {
+  confirm_password: String
+  description: String
+  email: String
+  full_name: String
+  is_active: Boolean
+  is_creator: Boolean
+  password: String
+  phone_number: String
+  tg_link: String
+}
+
+input UpdateWorkerDto {
+  age: Float
+  experience: Float
+  name: String
+  phone_number: String
+  role: Role
+  speciality_id: Float
+  username: String
+  worker_schedule: String
+}
+
+type Worker {
+  age: Float!
+  experience: Float!
+  hashed_token: String!
+  id: ID!
+  name: String!
+  phone_number: String!
+  role: Role!
+  speciality_id: Float!
+  username: String!
+  worker_schedule: String!
+}

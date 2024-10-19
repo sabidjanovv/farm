@@ -15,6 +15,24 @@ type Admin {
   tg_link: String!
 }
 
+type Animal {
+  animal_type_id: Float!
+  id: ID!
+  photos: String!
+}
+
+type AnimalType {
+  description: String!
+  id: ID!
+  type_name: String!
+}
+
+type Block {
+  description: String!
+  id: ID!
+  number: String!
+}
+
 input CreateAdminDto {
   confirm_password: String
   description: String
@@ -25,6 +43,57 @@ input CreateAdminDto {
   password: String
   phone_number: String
   tg_link: String
+}
+
+input CreateAnimalDto {
+  animal_type_id: Float
+  photos: String
+}
+
+input CreateAnimalTypeDto {
+  description: String
+  type_name: String
+}
+
+input CreateBlockDto {
+  description: String
+  number: String
+}
+
+input CreateFeedingDto {
+  animal_id: Float
+  dietary: String
+  feeding_schedules: String
+  types_of_feed: String
+  worker_id: Float
+}
+
+input CreateInfoDto {
+  animal_id: Float
+  birth_or_acquisition: DateTime
+  block_id: Float
+  bread: String
+  color: String
+  gender: String
+  height: Float
+  parent_id: Float
+  weight: Float
+}
+
+input CreateRecordsOfFeedingDto {
+  consumption: String
+  date: DateTime
+  feeding_id: Float
+}
+
+input CreateSpecialityDto {
+  description: String
+  title: String
+}
+
+input CreateVaccineDto {
+  vaccine_name: String
+  vaccine_type: String
 }
 
 input CreateWorkerDto {
@@ -38,20 +107,94 @@ input CreateWorkerDto {
   worker_schedule: String
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Feeding {
+  animal_id: Float!
+  dietary: String!
+  feeding_schedules: String!
+  id: ID!
+  types_of_feed: String!
+  worker_id: Float!
+}
+
+type Info {
+  animal_id: Float
+  birth_or_acquisition: DateTime
+  block_id: Float
+  bread: String
+  color: String
+  gender: String
+  height: Float
+  id: ID!
+  parent_id: Float
+  weight: Float
+}
+
 type Mutation {
-  create(createAdminDto: CreateAdminDto!): Admin!
-  createWorker(createWorkerDto: CreateWorkerDto!): Worker!
-  remove(id: ID!): ID!
+  createAdmin(createAdminDto: CreateAdminDto!): Admin!
+  createAnimal(createAnimal: CreateAnimalDto!): Animal!
+  createAnimalType(createAnimalType: CreateAnimalTypeDto!): AnimalType!
+  createBlock(createBlock: CreateBlockDto!): Block!
+  createFeeding(createFeeding: CreateFeedingDto!): Feeding!
+  createInfo(createInfo: CreateInfoDto!): Info!
+  createRecordsOfFeeding(createRecordsOfFeeding: CreateRecordsOfFeedingDto!): RecordsOfFeeding!
+  createSpeciality(createSpeciality: CreateSpecialityDto!): Speciality!
+  createVaccine(createVaccine: CreateVaccineDto!): Vaccine!
+  createWorker(createWorker: CreateWorkerDto!): Workers!
+  removeAdmin(id: ID!): ID!
+  removeAnimal(id: ID!): ID!
+  removeAnimalType(id: Float!): ID!
+  removeBlock(id: ID!): ID!
+  removeFeeding(id: ID!): ID!
+  removeInfo(id: ID!): ID!
+  removeRecordsOfFeeding(id: ID!): ID!
+  removeSpeciality(id: ID!): ID!
+  removeVaccine(id: ID!): ID!
   removeWorker(id: ID!): ID!
-  update(id: String!, updateAdminDto: UpdateAdminDto!): Admin!
-  updateWorker(id: String!, updateWorkerDto: UpdateWorkerDto!): Worker!
+  updateAdmin(id: String!, updateAdminDto: UpdateAdminDto!): Admin!
+  updateAnimal(id: Float!, updateAnimal: UpdateAnimalDto!): Animal!
+  updateAnimalType(id: Float!, updateAnimalType: UpdateAnimalTypeDto!): AnimalType!
+  updateBlock(id: Float!, updateBlock: UpdateBlockDto!): Block!
+  updateFeeding(id: Float!, updateFeeding: UpdateFeedingDto!): Feeding!
+  updateInfo(id: Float!, updateInfo: UpdateInfoDto!): Info!
+  updateRecordsOfFeeding(id: String!, updateRecordsOfFeeding: UpdateRecordsOfFeedingDto!): RecordsOfFeeding!
+  updateSpeciality(id: String!, updateSpeciality: UpdateSpecialityDto!): Speciality!
+  updateVaccine(id: Float!, updateVaccine: UpdateVaccineDto!): Vaccine!
+  updateWorker(id: Float!, updateWorker: UpdateWorkerDto!): Workers!
 }
 
 type Query {
-  findAll: [Admin!]!
-  findAllWorker: [Worker!]!
-  findOne(id: String!): Admin!
-  findOneWorker(id: String!): Worker!
+  findAllAdmin: [Admin!]!
+  findAllAnimal: [Animal!]!
+  findAllAnimalType: [AnimalType!]!
+  findAllBlock: [Block!]!
+  findAllFeeding: [Feeding!]!
+  findAllInfo: [Info!]!
+  findAllRecordsOfFeeding: [RecordsOfFeeding!]!
+  findAllSpeciality: [Speciality!]!
+  findAllVaccine: [Vaccine!]!
+  findAllWorkers: [Workers!]!
+  findOneAdmin(id: String!): Admin!
+  findOneAnimal(id: Float!): Animal!
+  findOneAnimalType(id: Float!): AnimalType!
+  findOneBlock(id: Float!): Block!
+  findOneFeeding(id: Float!): Feeding!
+  findOneInfo(id: Float!): Info!
+  findOneRecordsOfFeeding(id: Float!): RecordsOfFeeding!
+  findOneSpeciality(id: String!): Speciality!
+  findOneVaccine(id: Float!): Vaccine!
+  findOneWorker(id: Float!): Workers!
+}
+
+type RecordsOfFeeding {
+  consumption: String!
+  date: DateTime!
+  feeding_id: Float!
+  id: ID!
 }
 
 """Different roles for workers"""
@@ -63,6 +206,12 @@ enum Role {
   MILKER
   NURSE
   SECURITY
+}
+
+type Speciality {
+  description: String!
+  id: ID!
+  title: String!
 }
 
 input UpdateAdminDto {
@@ -77,6 +226,57 @@ input UpdateAdminDto {
   tg_link: String
 }
 
+input UpdateAnimalDto {
+  animal_type_id: Float
+  photos: String
+}
+
+input UpdateAnimalTypeDto {
+  description: String
+  type_name: String
+}
+
+input UpdateBlockDto {
+  description: String
+  number: String
+}
+
+input UpdateFeedingDto {
+  animal_id: Float
+  dietary: String
+  feeding_schedules: String
+  types_of_feed: String
+  worker_id: Float
+}
+
+input UpdateInfoDto {
+  animal_id: Float
+  birth_or_acquisition: DateTime
+  block_id: Float
+  bread: String
+  color: String
+  gender: String
+  height: Float
+  parent_id: Float
+  weight: Float
+}
+
+input UpdateRecordsOfFeedingDto {
+  consumption: String
+  date: DateTime
+  feeding_id: Float
+}
+
+input UpdateSpecialityDto {
+  description: String
+  title: String
+}
+
+input UpdateVaccineDto {
+  vaccine_name: String
+  vaccine_type: String
+}
+
 input UpdateWorkerDto {
   age: Float
   experience: Float
@@ -88,7 +288,13 @@ input UpdateWorkerDto {
   worker_schedule: String
 }
 
-type Worker {
+type Vaccine {
+  id: ID!
+  vaccine_name: String!
+  vaccine_type: String!
+}
+
+type Workers {
   age: Float!
   experience: Float!
   hashed_token: String!

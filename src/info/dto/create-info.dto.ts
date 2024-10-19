@@ -1,32 +1,31 @@
-import { ApiProperty } from "@nestjs/swagger";
 import { Field, InputType } from "@nestjs/graphql";
 
 @InputType()
-export class CreateAdminDto {
+export class CreateInfoDto {
   @Field({ nullable: true })
-  full_name: string;
+  weight: number;
 
   @Field({ nullable: true })
-  email: string;
+  height: number;
 
   @Field({ nullable: true })
-  phone_number: string;
+  color: string;
 
   @Field({ nullable: true })
-  tg_link: string;
+  bread: string;
 
   @Field({ nullable: true })
-  password: string;
+  gender: string;
 
   @Field({ nullable: true })
-  confirm_password: string;
+  birth_or_acquisition: Date;
 
   @Field({ nullable: true })
-  is_active: boolean;
+  block_id:number;
 
   @Field({ nullable: true })
-  is_creator: boolean;
+  animal_id:number;
 
   @Field({ nullable: true })
-  description: string;
+  parent_id:number;
 }

@@ -1,36 +1,38 @@
-import { Controller} from '@nestjs/common';
 import { WorkersService } from './workers.service';
-import { Args, ID, Mutation, Query } from "@nestjs/graphql";
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { UpdateWorkerDto } from './dto/update-worker.dto';
-import { Worker } from './entities/worker.entity';
+import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Workers } from './entities/worker.entity';
 
-@Controller("workers")
+@Resolver("workers")
 export class WorkersResolver {
   constructor(private readonly workersService: WorkersService) {}
 
-  @Mutation(() => Worker)
-  createWorker(@Args("createWorkerDto") createWorkerDto: CreateWorkerDto) {
+  @Mutation(() => Workers)
+  createWorker(@Args("createWorker") createWorkerDto: CreateWorkerDto) {
     return this.workersService.create(createWorkerDto);
   }
 
-  @Query(() => [Worker])
-  findAllWorker() {
+  @Query(() => [Workers])
+  findAllWorkers() {
     return this.workersService.findAll();
   }
 
-  @Query(() => Worker)
-  findOneWorker(@Args("id") id: string) {
+  @Query(() => Workers)
+  findOneWorker(@Args("id") id: number) {
     return this.workersService.findOne(+id);
   }
 
-  @Mutation(() => Worker)
-  updateWorker(@Args("id") id: string, @Args("updateWorkerDto") updateWorkerDto: UpdateWorkerDto) {
+  @Mutation(() => Workers)
+  updateWorker(
+    @Args("id") id: number,
+    @Args("updateWorker") updateWorkerDto: UpdateWorkerDto
+  ) {
     return this.workersService.update(+id, updateWorkerDto);
   }
 
-  @Mutation(()=> ID)
-  removeWorker(@Args("id",{type:()=> ID}) id: string) {
+  @Mutation(() => ID)
+  removeWorker(@Args("id", { type: () => ID }) id: number) {
     return this.workersService.remove(+id);
   }
 }

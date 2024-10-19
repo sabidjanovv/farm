@@ -18,7 +18,7 @@ registerEnumType(Role, {
 
 @ObjectType()
 @Entity()
-export class Worker {
+export class Workers {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -55,7 +55,7 @@ export class Worker {
   @Column({ default: null })
   hashed_token: string;
 
-  @Field(() => Role) 
+  @Field(() => Role)
   @Column({
     type: "enum",
     enum: Role,

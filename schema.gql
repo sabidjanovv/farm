@@ -68,6 +68,13 @@ input CreateFeedingDto {
   worker_id: Float
 }
 
+input CreateFiberProductionDto {
+  animal_id: Float
+  fiber_quality: String
+  fiber_yield: String
+  shearing_schedule: String
+}
+
 input CreateInfoDto {
   animal_id: Float
   birth_or_acquisition: DateTime
@@ -80,6 +87,30 @@ input CreateInfoDto {
   weight: Float
 }
 
+input CreateMeatProductionDto {
+  animal_id: Float
+  meat_yield: String
+  sharing_schedule: String
+  slaughter_date: DateTime
+}
+
+input CreateMilkProductionDto {
+  animal_id: Float
+  meat_yield: String
+  milk_quality: String
+  milk_schedule: String
+}
+
+input CreateRecordOfIlnessDto {
+  animal_id: Float
+  date_disease: DateTime
+  date_treatment: DateTime
+  illness_photo: String
+  illness_type: String
+  medicines: String
+  worker_id: Float
+}
+
 input CreateRecordsOfFeedingDto {
   consumption: String
   date: DateTime
@@ -89,6 +120,15 @@ input CreateRecordsOfFeedingDto {
 input CreateSpecialityDto {
   description: String
   title: String
+}
+
+input CreateVaccinationHistoryDto {
+  animal_id: Float
+  next_vaccination_date: DateTime
+  vaccinated_date: DateTime
+  vaccination_photo: String
+  vaccine_type_id: Float
+  worker_id: Float
 }
 
 input CreateVaccineDto {
@@ -121,6 +161,14 @@ type Feeding {
   worker_id: Float!
 }
 
+type FiberProduction {
+  animal_id: Float!
+  fiber_quality: String!
+  fiber_yield: String!
+  id: ID!
+  shearing_schedule: String!
+}
+
 type Info {
   animal_id: Float
   birth_or_acquisition: DateTime
@@ -134,15 +182,36 @@ type Info {
   weight: Float
 }
 
+type MeatProduction {
+  animal_id: Float!
+  id: ID!
+  meat_yield: String!
+  sharing_schedule: String!
+  slaughter_date: DateTime!
+}
+
+type MilkProduction {
+  animal_id: Float!
+  id: ID!
+  meat_yield: String!
+  milk_quality: String!
+  milk_schedule: String!
+}
+
 type Mutation {
   createAdmin(createAdminDto: CreateAdminDto!): Admin!
   createAnimal(createAnimal: CreateAnimalDto!): Animal!
   createAnimalType(createAnimalType: CreateAnimalTypeDto!): AnimalType!
   createBlock(createBlock: CreateBlockDto!): Block!
   createFeeding(createFeeding: CreateFeedingDto!): Feeding!
+  createFiberProduction(createFiberProduction: CreateFiberProductionDto!): FiberProduction!
   createInfo(createInfo: CreateInfoDto!): Info!
+  createMeatProduction(createMeatProduction: CreateMeatProductionDto!): MeatProduction!
+  createMilkProduction(createMilkProductionInput: CreateMilkProductionDto!): MilkProduction!
+  createRecordOfIlness(createRecordOfIlness: CreateRecordOfIlnessDto!): RecordOfIlness!
   createRecordsOfFeeding(createRecordsOfFeeding: CreateRecordsOfFeedingDto!): RecordsOfFeeding!
   createSpeciality(createSpeciality: CreateSpecialityDto!): Speciality!
+  createVaccinationHistory(createVaccinationHistory: CreateVaccinationHistoryDto!): VaccinationHistory!
   createVaccine(createVaccine: CreateVaccineDto!): Vaccine!
   createWorker(createWorker: CreateWorkerDto!): Workers!
   removeAdmin(id: ID!): ID!
@@ -150,9 +219,14 @@ type Mutation {
   removeAnimalType(id: Float!): ID!
   removeBlock(id: ID!): ID!
   removeFeeding(id: ID!): ID!
+  removeFiberProduction(id: ID!): ID!
   removeInfo(id: ID!): ID!
+  removeMeatProduction(id: ID!): ID!
+  removeMilkProduction(id: ID!): ID!
+  removeRecordOfIlness(id: ID!): ID!
   removeRecordsOfFeeding(id: ID!): ID!
   removeSpeciality(id: ID!): ID!
+  removeVaccinationHistory(id: ID!): ID!
   removeVaccine(id: ID!): ID!
   removeWorker(id: ID!): ID!
   updateAdmin(id: String!, updateAdminDto: UpdateAdminDto!): Admin!
@@ -160,34 +234,60 @@ type Mutation {
   updateAnimalType(id: Float!, updateAnimalType: UpdateAnimalTypeDto!): AnimalType!
   updateBlock(id: Float!, updateBlock: UpdateBlockDto!): Block!
   updateFeeding(id: Float!, updateFeeding: UpdateFeedingDto!): Feeding!
+  updateFiberProduction(id: Float!, updateFiberProduction: UpdateFiberProductionDto!): FiberProduction!
   updateInfo(id: Float!, updateInfo: UpdateInfoDto!): Info!
+  updateMeatProduction(id: Float!, updateMeatProduction: UpdateMeatProductionDto!): MeatProduction!
+  updateMilkProduction(id: Float!, updateMilkProduction: UpdateMilkProductionDto!): MilkProduction!
+  updateRecordOfIlness(id: Float!, updateRecordOfIlness: UpdateRecordOfIlnessDto!): RecordOfIlness!
   updateRecordsOfFeeding(id: String!, updateRecordsOfFeeding: UpdateRecordsOfFeedingDto!): RecordsOfFeeding!
   updateSpeciality(id: String!, updateSpeciality: UpdateSpecialityDto!): Speciality!
+  updateVaccinationHistory(id: Float!, updateVaccinationHistory: UpdateVaccinationHistoryDto!): VaccinationHistory!
   updateVaccine(id: Float!, updateVaccine: UpdateVaccineDto!): Vaccine!
   updateWorker(id: Float!, updateWorker: UpdateWorkerDto!): Workers!
 }
 
 type Query {
+  findAll: [MeatProduction!]!
   findAllAdmin: [Admin!]!
   findAllAnimal: [Animal!]!
   findAllAnimalType: [AnimalType!]!
   findAllBlock: [Block!]!
   findAllFeeding: [Feeding!]!
+  findAllFiberProductions: [FiberProduction!]!
   findAllInfo: [Info!]!
+  findAllMilkProductions: [MilkProduction!]!
+  findAllRecordOfIlness: [RecordOfIlness!]!
   findAllRecordsOfFeeding: [RecordsOfFeeding!]!
   findAllSpeciality: [Speciality!]!
+  findAllVaccinationHistory: [VaccinationHistory!]!
   findAllVaccine: [Vaccine!]!
   findAllWorkers: [Workers!]!
+  findOne(id: Float!): MeatProduction!
   findOneAdmin(id: String!): Admin!
   findOneAnimal(id: Float!): Animal!
   findOneAnimalType(id: Float!): AnimalType!
   findOneBlock(id: Float!): Block!
   findOneFeeding(id: Float!): Feeding!
+  findOneFiberProduction(id: Float!): FiberProduction!
   findOneInfo(id: Float!): Info!
+  findOneMilkProduction(id: Float!): MilkProduction!
+  findOneRecordOfIlness(id: Float!): RecordOfIlness!
   findOneRecordsOfFeeding(id: Float!): RecordsOfFeeding!
   findOneSpeciality(id: String!): Speciality!
+  findOneVaccinationHistory(id: Float!): VaccinationHistory!
   findOneVaccine(id: Float!): Vaccine!
   findOneWorker(id: Float!): Workers!
+}
+
+type RecordOfIlness {
+  animal_id: Float!
+  date_disease: DateTime!
+  date_treatment: DateTime!
+  id: ID!
+  illness_photo: String!
+  illness_type: String!
+  medicines: String!
+  worker_id: Float!
 }
 
 type RecordsOfFeeding {
@@ -249,6 +349,13 @@ input UpdateFeedingDto {
   worker_id: Float
 }
 
+input UpdateFiberProductionDto {
+  animal_id: Float
+  fiber_quality: String
+  fiber_yield: String
+  shearing_schedule: String
+}
+
 input UpdateInfoDto {
   animal_id: Float
   birth_or_acquisition: DateTime
@@ -261,6 +368,30 @@ input UpdateInfoDto {
   weight: Float
 }
 
+input UpdateMeatProductionDto {
+  animal_id: Float
+  meat_yield: String
+  sharing_schedule: String
+  slaughter_date: DateTime
+}
+
+input UpdateMilkProductionDto {
+  animal_id: Float
+  meat_yield: String
+  milk_quality: String
+  milk_schedule: String
+}
+
+input UpdateRecordOfIlnessDto {
+  animal_id: Float
+  date_disease: DateTime
+  date_treatment: DateTime
+  illness_photo: String
+  illness_type: String
+  medicines: String
+  worker_id: Float
+}
+
 input UpdateRecordsOfFeedingDto {
   consumption: String
   date: DateTime
@@ -270,6 +401,15 @@ input UpdateRecordsOfFeedingDto {
 input UpdateSpecialityDto {
   description: String
   title: String
+}
+
+input UpdateVaccinationHistoryDto {
+  animal_id: Float
+  next_vaccination_date: DateTime
+  vaccinated_date: DateTime
+  vaccination_photo: String
+  vaccine_type_id: Float
+  worker_id: Float
 }
 
 input UpdateVaccineDto {
@@ -286,6 +426,16 @@ input UpdateWorkerDto {
   speciality_id: Float
   username: String
   worker_schedule: String
+}
+
+type VaccinationHistory {
+  animal_id: Float!
+  id: ID!
+  next_vaccination_date: DateTime!
+  vaccinated_date: DateTime!
+  vaccination_photo: String!
+  vaccine_type_id: Float!
+  worker_id: Float!
 }
 
 type Vaccine {
